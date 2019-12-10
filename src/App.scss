@@ -1,0 +1,51 @@
+.App {
+  background-color: #f3f3f3;
+}
+#components-layout-demo-custom-trigger .trigger {
+  font-size: 18px;
+  line-height: 64px;
+  padding: 0 24px;
+  cursor: pointer;
+  transition: color .3s;
+}
+
+#components-layout-demo-custom-trigger .trigger:hover {
+  color: #1890ff;
+}
+
+#components-layout-demo-custom-trigger .logo {
+  height: 32px;
+  background: rgba(255,255,255,.2);
+  margin: 16px;
+}
+
+#header {
+  display: flex;
+  color: #fff;
+  height: 60px;
+  padding: 0 15px;
+  overflow: hidden;
+  background-color: #001529;
+  width: 100%;
+  img {
+    width: 80px;
+  }
+  #nav {
+    flex: 1;
+  }
+  #logo {
+    background-color: #232f3b;
+    width: 200px;
+  }
+}
+
+#logo,
+#sider {
+  padding-right: 20px;
+}
+#Layout {
+  height: calc(100vh - 60px);
+}
+
+
+@import '~antd/dist/antd.css';
