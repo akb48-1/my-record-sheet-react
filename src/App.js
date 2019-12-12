@@ -23,7 +23,7 @@ class App extends Component {
 
   componentDidMount() {
     console.log(this.props.children)
-    fetch('http://localhost:8088/MySpringMvc/helloworld').then(res => res.json()).then(data => {
+    fetch('http://120.79.101.115/MySpringMvc/helloworld').then(res => res.json()).then(data => {
       console.log(data)
     })
   }

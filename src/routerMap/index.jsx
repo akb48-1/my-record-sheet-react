@@ -7,6 +7,7 @@ import Page2 from '../containers/page2/page'
 import Page3 from '../containers/page3/page'
 import Page4 from '../containers/page4/page'
 import Page5 from '../containers/page5/page'
+import Err from '../containers/ErrorPage'
 
 
 class RouterMap extends Component {
@@ -15,7 +16,7 @@ class RouterMap extends Component {
         return (
             <BrowserRouter >
                 <App >
-                    <Route path="/" component={Home} tab="首页" />
+                    <Route path="/home" component={Home} tab="首页" />
                     <Route path="/page1" component={Page1} tab="页面1" />
                     <Route path="/page2" component={Page2} tab="页面2" />
                     <Route path="/page3" component={Page3} tab="页面3" />

@@ -5,7 +5,7 @@ import { Tabs, Button } from 'antd';
 import { panes, toPath } from '../util/map';
 // import axios from 'axios';
 import { withRouter, Route } from 'react-router-dom';
-import Page5 from '../containers/page5/page'
+import Err from '../containers/ErrorPage'
 
 const TabPane = Tabs.TabPane;
 
@@ -40,11 +40,15 @@ class Panle extends Component {
         })
     }
 
+    redirect = () => {
+        if(this.props.location.pathname === '/') {
+            this.props.history.push('/home');
+        } else if (this.state.panes.find((item) => this.props.location.pathname === item.props.path) == null) {
+            this.props.history.push(this.props.location.pathname);
+        }
+    }
     componentDidMount() {
-        console.log(this.props.children)
-        console.log(this.props.location.pathname)
         let newPanes = this.props.children.find(item => item.props.path === this.props.location.pathname)
-        console.log(newPanes)
 
         if (newPanes) {
             this.setState({
@@ -52,19 +56,21 @@ class Panle extends Component {
             })
         }
         
-
         this.props.history.listen((a,b) => {
-            
             this.setState({}, () => {
                 if (!this.state.panes.map(item => item.props.path).includes(this.props.location.pathname)) {
-                    this.state.panes.push(this.props.children.find((item) => this.props.location.pathname === item.props.path))
+                    let pane = this.props.children.find((item) => this.props.location.pathname === item.props.path) || <Route  path={this.props.location.pathname} component={Err} tab="找不到该页面" />
+                    this.state.panes.push(pane)
                     
                     this.setState({
                         panes: this.state.panes
                     })
+                    
                 }
             })
         })
+
+        this.redirect();
     }
 
 
