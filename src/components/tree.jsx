@@ -3,6 +3,8 @@ import React, { Component } from 'react';
 import { Menu, Icon } from 'antd';
 import leftNav from '../util/leftNav';
 import { withRouter } from 'react-router-dom';
+import { queryNavList } from '../axios';
+
 const SubMenu = Menu.SubMenu;
 console.log(leftNav)
 
@@ -13,7 +15,7 @@ const tree = (arr, history) => {
             return (
                 <SubMenu
                     key={obj.url}
-                    title={<span><Icon type="user" /> <span>{obj.label}-40</span></span>}
+                    title={<span><Icon type={obj.iconType} /> <span>{obj.label}</span></span>}
                 >
                     {
                         tree(obj.children, history)
@@ -39,11 +41,13 @@ class Tree extends Component {
         };
     }
     componentDidMount() {
-        fetch('http://120.79.101.115/MySpringMvc/queryNavList').then(res => res.json()).then(data => {
-            console.log(data.list)
-            this.setState({
-                leftNav: data.list
-            })
+        queryNavList().then(res => {
+            console.log(res.data.list);
+            if(res.status) {
+                this.setState({
+                    leftNav: res.data.list
+                })
+            }
         })
     }
     render() {

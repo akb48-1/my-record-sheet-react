@@ -1,58 +1,46 @@
-const navList = [
-    {
-        label: '页面1',
-        id: '1',
-        url: '/page1',
-        render: () => import('../containers/page1/page'),
-        iconType: 'user',
-        children: []
-    },
-    {
-        label: '页面2',
-        id: '2',
-        url: '/page2',
-        render: () => import('../containers/page2/page'),
-        iconType: 'user',
-        children: []
-    },
-    {
-        label: '页面3',
-        id: '3',
-        render: '',
-        iconType: 'user',
-        children: [
-                {
-                    label: '页面3-1',
-                    id: '3-1',
-                    url: '/page3',
-                    render: () => import('../containers/page3/page'),
-                    iconType: 'user',
-                    children: []
-                },
-                {
-                    label: '页面3-2',
-                    id: '3-2',
-                    url: '/page4',
-                    render: () => import('../containers/page4/page'),
-                    iconType: 'user',
-                    children: []
-                },
-                {
-                    label: '页面3-3',
-                    id: '3-3',
-                    render: '',
-                    children: [
-                        {
-                            label: '页面3-3-1',
-                            id: '3-3-1',
-                            url: '/page5',
-                            render: () => import('../containers/page5/page'),
-                            iconType: 'user',
-                            children: []
-                        },
-                    ]
-                },
-        ]
-    },
-]
-export default navList
+const navList = [{
+    "iconType": "home",
+    "id": 100,
+    "label": "首页",
+    "level": 1,
+    "status": 1,
+    "url": "/home"
+}, {
+    "iconType": "user",
+    "id": 200,
+    "label": "人物",
+    "level": 1,
+    "status": 1,
+    "url": "/person"
+}, {
+    "iconType": "fire",
+    "id": 300,
+    "label": "任务",
+    "level": 1,
+    "status": 1,
+    "url": "/task"
+}, {
+    "iconType": "pay-circle",
+    "id": 400,
+    "label": "收/支",
+    "level": 1,
+    "status": 1,
+    "url": "/user"
+}, {
+    "children": [{
+        "iconType": "heart",
+        "id": 501,
+        "label": "爱好",
+        "level": 2,
+        "parent_id": "500",
+        "status": 1,
+        "url": "/hobby"
+    }],
+    "iconType": "hdd",
+    "id": 500,
+    "label": "其他",
+    "level": 1,
+    "status": 1,
+    "url": "/other"
+}]
+// export default navList

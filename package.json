@@ -5,6 +5,7 @@
   "dependencies": {
     "antd": "^3.16.3",
     "axios": "^0.18.0",
+    "moment": "^2.24.0",
     "react": "^16.8.6",
     "react-dom": "^16.8.6",
     "react-redux": "^7.0.3",
@@ -32,6 +33,7 @@
   ],
   "homepage": ".",
   "devDependencies": {
+    "http-proxy-middleware": "^0.20.0",
     "node-sass": "^4.11.0",
     "react-loadable": "^5.5.0",
     "react-router": "^5.1.2",
