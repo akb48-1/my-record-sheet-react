@@ -24,9 +24,6 @@ class App extends Component {
   componentDidMount() {
     console.log(this.props.children)
     console.log(process.env)
-    fetch('http://120.79.101.115/MySpringMvc/helloworld').then(res => res.json()).then(data => {
-      console.log(data)
-    })
   }
 
   render() {

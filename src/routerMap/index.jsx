@@ -17,11 +17,12 @@ class RouterMap extends Component {
             <BrowserRouter >
                 <App >
                     <Route path="/home" component={Home} tab="首页" />
-                    <Route path="/person" component={Page1} tab="页面1" />
-                    <Route path="/task" component={Page2} tab="页面2" />
-                    <Route path="/user" component={Page3} tab="页面3" />
-                    <Route path="/other" component={Page4} tab="页面4" />
-                    {/* <Route path="/hobby" component={Page5} tab="页面5" /> */}
+                    <Route path="/person" component={Page1} tab="人物" />
+                    <Route path="/task" component={Page2} tab="任务" />
+                    <Route path="/income-expenditure " component={Page3} tab="收入/支出" />
+                    {/* <Route path="/other" component={Page4} tab="其他" /> */}
+                    <Route path="/other/hobby" component={Home} tab="喜欢" />
+                    <Route path="/other/loathe" component={Home} tab="讨厌" />
                 </App>
             </BrowserRouter>
         );

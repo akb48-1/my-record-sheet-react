@@ -3,7 +3,7 @@ import React, { Component } from 'react';
 import { Menu, Icon } from 'antd';
 import leftNav from '../util/leftNav';
 import { withRouter } from 'react-router-dom';
-import { queryNavList } from '../axios';
+import { queryNavList } from '../http';
 
 const SubMenu = Menu.SubMenu;
 console.log(leftNav)
@@ -54,7 +54,7 @@ class Tree extends Component {
         let { leftNav } = this.state;
         console.log(this.props.location.pathname)
         return (
-            <Menu theme="dark" mode="inline" defaultSelectedKeys={['1']} selectedKeys={[this.props.location.pathname]}>
+            <Menu theme="dark" mode="inline" defaultSelectedKeys={['1']} selectedKeys={[this.props.location.pathname]} defaultOpenKeys={['/' + this.props.location.pathname.split('/')[1]]}>
                 {tree(leftNav, this.props.history)}
             </Menu>
         );
