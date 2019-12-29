@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
-import { Form, Input, Button, DatePicker } from 'antd';
+import { Form, Input, Button, DatePicker, Select } from 'antd';
+const { Option } = Select;
 
 class NewFormCom extends Component {
     componentWillMount() {
@@ -13,7 +14,7 @@ class NewFormCom extends Component {
                     rules: item.rules || [],
                     initialValue: item.initialValue
                 })(
-                    <DatePicker placeholder={item.placeholder || ''} />,
+                    <DatePicker placeholder={item.placeholder || ''} allowClear={item.allowClear ? 'allowClear' : ''} />,
                 )}
             </Form.Item>
         )
@@ -25,7 +26,29 @@ class NewFormCom extends Component {
                     rules: item.rules || [],
                     initialValue: item.initialValue
                 })(
-                    <Input placeholder={item.placeholder || ''} />,
+                    <Input placeholder={item.placeholder || ''} allowClear={item.allowClear ? 'allowClear' : ''}/>,
+                )}
+            </Form.Item>
+        )
+    }
+    renderSelect = (item, getFieldDecorator, index) => {
+        return (
+            <Form.Item label={item.label || ''} key={index} style={item.style || {}}>
+                {getFieldDecorator(item.key, {
+                    rules: item.rules || [],
+                    initialValue: item.initialValue
+                })(
+                    <Select placeholder={item.placeholder || ''} allowClear={item.allowClear ? 'allowClear' : ''} >
+                        {
+                            // if(Array.isArray(item.options) && item.options.length > 0) {
+                                
+                            // }
+
+                                item.options.map((opt) => {
+                                   return  <Option key={opt.value}>{opt.name}</Option>
+                                })
+                        }
+                    </Select>
                 )}
             </Form.Item>
         )
@@ -37,7 +60,7 @@ class NewFormCom extends Component {
                     rules: item.rules || [],
                     initialValue: item.initialValue
                 })(
-                    <Input.TextArea placeholder={item.placeholder || ''} />,
+                    <Input.TextArea placeholder={item.placeholder || ''} allowClear={item.allowClear ? 'allowClear' : ''} />,
                 )}
             </Form.Item>
         )
@@ -61,6 +84,9 @@ class NewFormCom extends Component {
                     this.props.items.map((item, index) => {
                         if (item.element === 'input') {
                             return this.renderInput(item, getFieldDecorator, index)
+                        }
+                        if (item.element === 'select') {
+                            return this.renderSelect(item, getFieldDecorator, index)
                         }
                         if (item.element === 'textArea') {
                             return this.renderTextArea(item, getFieldDecorator, index);

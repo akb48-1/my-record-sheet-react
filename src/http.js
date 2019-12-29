@@ -5,26 +5,40 @@ import qs from 'qs';
 export function queryNavList() {
     return axios({
         method: 'post',
-        url: '/queryNavList',
+        url: '/menu/queryAllMenuList',
         data: JSON.stringify({
         })
       });
 }
 
-export function queryPersonList() {
+export function queryMemberList(params = {}) {
   return axios({
     method: 'post',
-    url: '/queryAllPerson',
-    data: JSON.stringify({
-    })
+    url: '/user/queryUserList',
+    data: params
   });
 }
 
-export function addPerson(params = {}) {
-
+export function addMember(params = {}) {
   return axios({
     method: 'post',
-    url: '/addPerson',
+    url: '/user/addUser',
+    data: params
+  });
+}
+
+export function modifyMember(params = {}) {
+  return axios({
+    method: 'post',
+    url: '/user/updateUser',
+    data: params
+  });
+}
+
+export function deleteMember(params = {}) {
+  return axios({
+    method: 'post',
+    url: '/user/deleteUserById',
     data: params
   });
 }

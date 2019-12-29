@@ -4947,7 +4947,7 @@ http-parser-js@>=0.4.0:
 
 http-proxy-middleware@^0.20.0:
   version "0.20.0"
-  resolved "https://registry.npm.taobao.org/http-proxy-middleware/download/http-proxy-middleware-0.20.0.tgz#5b128f7207985c4ea91b53fab8ad897a48c690d6"
+  resolved "https://registry.npm.taobao.org/http-proxy-middleware/download/http-proxy-middleware-0.20.0.tgz?cache=0&sync_timestamp=1577317759023&other_urls=https%3A%2F%2Fregistry.npm.taobao.org%2Fhttp-proxy-middleware%2Fdownload%2Fhttp-proxy-middleware-0.20.0.tgz#5b128f7207985c4ea91b53fab8ad897a48c690d6"
   integrity sha1-WxKPcgeYXE6pG1P6uK2JekjGkNY=
   dependencies:
     http-proxy "^1.17.0"

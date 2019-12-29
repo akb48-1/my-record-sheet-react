@@ -1,14 +1,12 @@
 import axios from 'axios';
 import qs from 'qs';
 
-const url = process.env.NODE_ENV === "development"? 'http://localhost:8088/MySpringMvc' : '/MySpringMvc';
-
 const instance = axios.create({
   headers: {
     'content-type': 'application/json;charset=UTF-8',
     'token': 'one'
   },
-  baseURL: url,
+  baseURL: '/springBoot',
   timeout: 10000,
   withCredentials: true
 })

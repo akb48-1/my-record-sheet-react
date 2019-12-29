@@ -11,7 +11,7 @@ const navList = [{
     "label": "人物",
     "level": 1,
     "status": 1,
-    "url": "/person"
+    "url": "/member"
 }, {
     "iconType": "fire",
     "id": 300,
