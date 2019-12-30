@@ -3,7 +3,7 @@ import React, { Component } from 'react';
 import { Menu, Icon } from 'antd';
 import leftNav from '../util/leftNav';
 import { withRouter } from 'react-router-dom';
-import { queryNavList } from '../http';
+import { queryAllMenuList } from '../http';
 
 const SubMenu = Menu.SubMenu;
 console.log(leftNav)
@@ -41,11 +41,11 @@ class Tree extends Component {
         };
     }
     componentDidMount() {
-        queryNavList().then(res => {
-            console.log(res.data.list);
+        queryAllMenuList().then(res => {
+            console.log(res.list);
             if(res.status) {
                 this.setState({
-                    leftNav: res.data.list
+                    leftNav: res.list
                 })
             }
         })

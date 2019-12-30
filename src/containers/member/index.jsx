@@ -231,11 +231,11 @@ class MemberCon extends Component {
         })
         queryMemberList(params).then(res => {
             this.setState({
-                dataSource: res.data.data.list,
-                total: res.data.data.total,
+                dataSource: res.data.list,
+                total: res.data.total,
                 pagination: {
-                    pageNum: res.data.data.pageNum,
-                    pageSize: res.data.data.pageSize
+                    pageNum: res.data.pageNum,
+                    pageSize: res.data.pageSize
                 },
             })
         }).finally(() => {

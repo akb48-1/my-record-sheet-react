@@ -25,7 +25,6 @@ instance.interceptors.request.use(config => {
 
 // 添加响应拦截器
 instance.interceptors.response.use(response => {
-  console.log(response, 'response')
   // 对响应数据做些事
   if (response.status === 200) {
     console.log(response)
@@ -35,7 +34,7 @@ instance.interceptors.response.use(response => {
       console.log('没有数据')
     }
   }
-  return response;
+  return response.data;
 }, error => {
   return Promise.reject({error: '错误'}); // 返回接口返回的错误信息
 })

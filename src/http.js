@@ -1,8 +1,17 @@
 import axios from './axios';
 import qs from 'qs';
 
+/* 登录 */
+export function toLogin(params = {}) {
+  return axios({
+    method: 'post',
+    url: '/toLogin',
+    data: params
+  });
+}
 
-export function queryNavList() {
+/* 菜单列表 */
+export function queryAllMenuList() {
     return axios({
         method: 'post',
         url: '/menu/queryAllMenuList',
@@ -11,6 +20,7 @@ export function queryNavList() {
       });
 }
 
+/* 成员列表 */
 export function queryMemberList(params = {}) {
   return axios({
     method: 'post',
@@ -19,6 +29,7 @@ export function queryMemberList(params = {}) {
   });
 }
 
+/* 新增成员 */
 export function addMember(params = {}) {
   return axios({
     method: 'post',
@@ -27,6 +38,7 @@ export function addMember(params = {}) {
   });
 }
 
+/* 修改成员信息 */
 export function modifyMember(params = {}) {
   return axios({
     method: 'post',
@@ -35,6 +47,7 @@ export function modifyMember(params = {}) {
   });
 }
 
+/* 删除成员 */
 export function deleteMember(params = {}) {
   return axios({
     method: 'post',
@@ -42,3 +55,4 @@ export function deleteMember(params = {}) {
     data: params
   });
 }
+
