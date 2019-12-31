@@ -42,10 +42,10 @@ class Tree extends Component {
     }
     componentDidMount() {
         queryAllMenuList().then(res => {
-            console.log(res.list);
-            if(res.status) {
+            console.log(res.data.list);
+            if(res.success) {
                 this.setState({
-                    leftNav: res.list
+                    leftNav: res.data.list
                 })
             }
         })

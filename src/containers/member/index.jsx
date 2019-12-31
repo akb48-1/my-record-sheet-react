@@ -211,7 +211,7 @@ class MemberCon extends Component {
             onOk() {
                 return new Promise((resolve, reject) => {
                     deleteMember({ uid: item.uid }).then(res => {
-                        if (res.data.code === 200) {
+                        if (res.code === 200) {
                             message.success('删除成功')
                             resolve();
                             that.modalForm && that.modalForm.props.form.resetFields()
@@ -253,7 +253,7 @@ class MemberCon extends Component {
     }
     addMember = (values) => {
         addMember(values).then(res => {
-            if (res.data.code === 200) {
+            if (res.code === 200) {
                 this.setState({
                     visible: false
                 }, () => {
@@ -268,7 +268,7 @@ class MemberCon extends Component {
     }
     modifyMember = (values) => {
         modifyMember(values).then(res => {
-            if (res.data.code === 200) {
+            if (res.code === 200) {
                 this.setState({
                     visible: false
                 }, () => {
