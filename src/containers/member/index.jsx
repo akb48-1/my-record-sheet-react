@@ -36,7 +36,7 @@ class MemberCon extends Component {
                     label: '姓名',
                     rules: [{ required: true, message: '请输入姓名' }],
                     placeholder: '姓名',
-                    key: 'username',
+                    key: 'member_name',
                     initialValue: '',
                     allowClear: true,
                 },
@@ -101,7 +101,7 @@ class MemberCon extends Component {
                     element: 'input',
                     label: '姓名',
                     placeholder: '姓名',
-                    key: 'username',
+                    key: 'member_name',
                     initialValue: '',
                     allowClear: true,
                 },
@@ -135,8 +135,8 @@ class MemberCon extends Component {
     columns = [
         {
             title: '姓名',
-            dataIndex: 'username',
-            key: 'username',
+            dataIndex: 'member_name',
+            key: 'member_name',
             align: 'left'
         },
         {
@@ -203,7 +203,7 @@ class MemberCon extends Component {
     deleteBefore = (item) => {
         let that = this;
         Modal.confirm({
-            title: `确定删除${item.username}?`,
+            title: `确定删除${item.member_name}?`,
             okText: '删除',
             okType: 'danger',
             cancelText: '关闭',

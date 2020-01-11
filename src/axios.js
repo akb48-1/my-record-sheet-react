@@ -3,12 +3,12 @@ import qs from 'qs';
 
 const instance = axios.create({
   headers: {
-    'content-type': 'application/json;charset=UTF-8',
-    'token': 'one'
+    'Content-Type': 'application/json;charset=UTF-8',
+    "Token": "123456444"
   },
   baseURL: '/springBoot',
   timeout: 10000,
-  withCredentials: true
+  withCredentials: true,
 })
 
 // 添加请求拦截器
@@ -26,7 +26,7 @@ instance.interceptors.request.use(config => {
 // 添加响应拦截器
 instance.interceptors.response.use(response => {
   // 对响应数据做些事
-  if (response.status === 200) {
+  if (response.code === 200) {
     console.log(response)
     if (response.data) {
       console.log('有数据')

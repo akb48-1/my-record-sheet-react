@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Form, Input, Icon, Button } from 'antd';
 import ResBtn from '@/components/ResBtn'
+import { withRouter, Route } from 'react-router-dom';
 
 import { toLogin } from '@/http';
 
@@ -14,6 +15,11 @@ class LoginCom extends Component {
                 typeof fn === "function" && fn();
                 toLogin(values).then(res => {
                     console.log(res)
+                    
+                    if (res.status) {
+                        this.props.history.push('/home');
+                        localStorage.setItem('token', res.data.token);
+                    }
                     Promise.resolve(res)
                 }).catch((err) => {
                     Promise.reject(err)
@@ -58,4 +64,4 @@ class LoginCom extends Component {
 }
 
 const Login = Form.create({})(LoginCom);
-export default Login;
+export default withRouter(Login);

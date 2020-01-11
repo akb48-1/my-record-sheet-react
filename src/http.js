@@ -3,6 +3,7 @@ import qs from 'qs';
 
 /* 登录 */
 export function toLogin(params = {}) {
+  console.log(params)
   return axios({
     method: 'post',
     url: '/toLogin',
@@ -24,7 +25,7 @@ export function queryAllMenuList() {
 export function queryMemberList(params = {}) {
   return axios({
     method: 'post',
-    url: '/user/queryUserList',
+    url: '/member/queryMemberList',
     data: params
   });
 }
@@ -33,7 +34,7 @@ export function queryMemberList(params = {}) {
 export function addMember(params = {}) {
   return axios({
     method: 'post',
-    url: '/user/addUser',
+    url: '/member/addMember',
     data: params
   });
 }
@@ -42,7 +43,7 @@ export function addMember(params = {}) {
 export function modifyMember(params = {}) {
   return axios({
     method: 'post',
-    url: '/user/updateUser',
+    url: '/member/updateMember',
     data: params
   });
 }
@@ -51,7 +52,16 @@ export function modifyMember(params = {}) {
 export function deleteMember(params = {}) {
   return axios({
     method: 'post',
-    url: '/user/deleteUserById',
+    url: '/member/deleteMemberById',
+    data: params
+  });
+}
+
+/* 登陆人信息 */
+export function accountInfo(params = {}) {
+  return axios({
+    method: 'post',
+    url: '/account/info',
     data: params
   });
 }
