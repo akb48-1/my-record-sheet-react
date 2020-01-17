@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Form, Input, Icon, Button } from 'antd';
+import { Form, Input, Icon, Button, message } from 'antd';
 import ResBtn from '@/components/ResBtn'
 import { withRouter, Route } from 'react-router-dom';
 
@@ -7,6 +7,9 @@ import { toLogin } from '@/http';
 
 class LoginCom extends Component {
     componentWillMount = () => {
+        if(localStorage.getItem('token', '')) {
+            this.props.history.push('/home');
+        }
     }
     toLogin = (fn) => {
         return this.props.form.validateFields((err, values) => {
@@ -14,11 +17,16 @@ class LoginCom extends Component {
             if(!err) {
                 typeof fn === "function" && fn();
                 toLogin(values).then(res => {
-                    console.log(res)
                     
-                    if (res.status) {
-                        this.props.history.push('/home');
+                    if (res.success) {
+                        message.success('登陆成功');
                         localStorage.setItem('token', res.data.token);
+                        let userInfo = {
+                            username: res.data.username
+                        }
+                        localStorage.setItem('userInfo', JSON.stringify(userInfo));
+                        
+                        this.props.history.push('/home');
                     }
                     Promise.resolve(res)
                 }).catch((err) => {

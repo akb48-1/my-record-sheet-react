@@ -3,11 +3,13 @@ import qs from 'qs';
 
 /* 登录 */
 export function toLogin(params = {}) {
-  console.log(params)
   return axios({
     method: 'post',
     url: '/toLogin',
-    data: params
+    headers: {
+      'Content-Type': 'application/x-www-form-urlencoded'
+    },
+    data: qs.stringify(params)
   });
 }
 

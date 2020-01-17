@@ -92,7 +92,7 @@ class MemberCon extends Component {
                     // style: { display: "none" },
                     initialValue: '',
                     rules: [{ required: true, message: '请选择状态' }],
-                    options: [{ value: "1", name: '已开启' }, { value: "0", name: '已关闭' }],
+                    options: [{ value: "1", name: '开启' }, { value: "0", name: '关闭' }],
                     allowClear: true,
                 },
             ],
@@ -211,11 +211,11 @@ class MemberCon extends Component {
             onOk() {
                 return new Promise((resolve, reject) => {
                     deleteMember({ uid: item.uid }).then(res => {
-                        if (res.code === 200) {
+                        if (res.success) {
                             message.success('删除成功')
                             resolve();
                             that.modalForm && that.modalForm.props.form.resetFields()
-                            that.queryMemberList({ ...this.state.searchParams, ...this.state.pagination});
+                            that.queryMemberList({ ...that.state.searchParams, ...that.state.pagination});
                         } else {
                             message.error('删除失败')
                         }

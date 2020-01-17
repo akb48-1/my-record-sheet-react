@@ -32,6 +32,9 @@
   }
   #nav {
     flex: 1;
+    display: flex;
+    align-items: center;
+    flex-direction: row-reverse;
   }
   #logo {
     background-color: #232f3b;

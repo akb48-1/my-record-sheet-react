@@ -6,10 +6,8 @@ import { withRouter } from 'react-router-dom';
 import { queryAllMenuList } from '../http';
 
 const SubMenu = Menu.SubMenu;
-console.log(leftNav)
 
 const tree = (arr, history) => {
-    console.log(arr)
     return arr.map((obj, index) => {
         if (obj.children && obj.children.length) {
             return (
@@ -42,7 +40,6 @@ class Tree extends Component {
     }
     componentDidMount() {
         queryAllMenuList().then(res => {
-            console.log(res.data.list);
             if(res.success) {
                 this.setState({
                     leftNav: res.data.list
@@ -52,7 +49,6 @@ class Tree extends Component {
     }
     render() {
         let { leftNav } = this.state;
-        console.log(this.props.location.pathname)
         return (
             <Menu theme="dark" mode="inline" defaultSelectedKeys={['1']} selectedKeys={[this.props.location.pathname]} defaultOpenKeys={['/' + this.props.location.pathname.split('/')[1]]}>
                 {tree(leftNav, this.props.history)}

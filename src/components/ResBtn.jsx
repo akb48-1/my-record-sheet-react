@@ -13,7 +13,6 @@ export default class ResBtn extends Component {
         let { clickEvent } = {...this.props};
         
         clickEvent(() => {
-            console.log(++this.count)
             this.setState({
                 loading: true
             })
@@ -26,7 +25,6 @@ export default class ResBtn extends Component {
         });
 
     }
-    count = 0;
     render() {
         let filterProps = {...this.props};
         delete filterProps.clickEvent;
