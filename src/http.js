@@ -68,3 +68,119 @@ export function accountInfo(params = {}) {
   });
 }
 
+
+
+
+/* 奖品配置列表 */
+export function queryPrizeConfigList(params = {}) {
+  return axios({
+    method: 'post',
+    url: '/lotter/prize/queryPrizeConfigList',
+    data: params
+  });
+}
+
+/* 新增奖品配置 */
+export function addPrizeConfig(params = {}) {
+  return axios({
+    method: 'post',
+    url: '/lotter/prize/addPrizeConfig',
+    data: params
+  });
+}
+
+/* 修改奖品配置信息 */
+export function modifyPrizeConfig(params = {}) {
+  return axios({
+    method: 'post',
+    url: '/lotter/prize/updatePrizeConfig',
+    data: params
+  });
+}
+
+/* 删除奖品配置 */
+export function deletePrizeConfigById(params = {}) {
+  return axios({
+    method: 'post',
+    url: '/lotter/prize/deletePrizeConfigById',
+    data: params
+  });
+}
+
+
+
+
+/* 奖品配置列表 */
+export function queryPrizeIssuerList(params = {}) {
+  return axios({
+    method: 'post',
+    url: '/lotter/prizeIssuer/queryPrizeIssuerList',
+    data: params
+  });
+}
+
+/* 新增奖品配置 */
+export function addPrizeIssuer(params = {}) {
+  return axios({
+    method: 'post',
+    url: '/lotter/prizeIssuer/addPrizeIssuer',
+    data: params
+  });
+}
+
+/* 修改奖品配置信息 */
+export function modifyPrizeIssuer(params = {}) {
+  return axios({
+    method: 'post',
+    url: '/lotter/prizeIssuer/updatePrizeIssuer',
+    data: params
+  });
+}
+
+/* 删除奖品配置 */
+export function deletePrizeIssuerById(params = {}) {
+  return axios({
+    method: 'post',
+    url: '/lotter/prizeIssuer/deletePrizeIssuerById',
+    data: params
+  });
+}
+
+
+
+/* 任务配置列表 */
+export function queryLotteryTaskList(params = {}) {
+  return axios({
+    method: 'post',
+    url: '/lotter/lotteryTask/queryLotteryTaskList',
+    data: params
+  });
+}
+
+/* 新增任务配置 */
+export function addLotteryTask(params = {}) {
+  return axios({
+    method: 'post',
+    url: '/lotter/lotteryTask/addLotteryTask',
+    data: params
+  });
+}
+
+/* 修改任务配置信息 */
+export function modifyLotteryTask(params = {}) {
+  return axios({
+    method: 'post',
+    url: '/lotter/lotteryTask/updateLotteryTask',
+    data: params
+  });
+}
+
+/* 删除任务配置 */
+export function deleteLotteryTaskById(params = {}) {
+  return axios({
+    method: 'post',
+    url: '/lotter/lotteryTask/deleteLotteryTaskById',
+    data: params
+  });
+}
+

@@ -1,17 +1,17 @@
 import React, { Component } from 'react';
 
-class Hobby extends Component {
+class PrizeResult extends Component {
     componentWillMount = () => {
     }
     render() {
         
         return (
             <div>
-                爱好
+                抽奖结果
                 <input type="text" />
             </div>
         );
     }
 }
 
-export default Hobby;
+export default PrizeResult;

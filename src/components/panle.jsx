@@ -57,8 +57,12 @@ class Panle extends Component {
         }
         
         this.props.history.listen((a,b) => {
+            console.log(this.props.children)
             this.setState({}, () => {
                 if (!this.state.panes.map(item => item.props.path).includes(this.props.location.pathname)) {
+                    console.log(this.props.location.pathname)
+                    console.log(this.props.children.find((item) => this.props.location.pathname === item.props.path))
+                    console.log(this.props.children)
                     let pane = this.props.children.find((item) => this.props.location.pathname === item.props.path) || <Route  path={this.props.location.pathname} component={Err} tab="找不到该页面" />
                     this.state.panes.push(pane)
                     

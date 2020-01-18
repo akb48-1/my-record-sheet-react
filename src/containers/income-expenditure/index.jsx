@@ -1,17 +1,17 @@
 import React, { Component } from 'react';
 
-class Page3 extends Component {
+class IncomeExpenditure extends Component {
     componentWillMount = () => {
     }
     render() {
         
         return (
             <div>
-                page3
+                收/支表
                 <input type="text" />
             </div>
         );
     }
 }
 
-export default Page3;
+export default IncomeExpenditure;

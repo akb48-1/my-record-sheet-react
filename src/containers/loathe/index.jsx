@@ -1,17 +1,17 @@
 import React, { Component } from 'react';
 
-class Hobby extends Component {
+class Loathe extends Component {
     componentWillMount = () => {
     }
     render() {
         
         return (
             <div>
-                爱好
+                讨厌
                 <input type="text" />
             </div>
         );
     }
 }
 
-export default Hobby;
+export default Loathe;

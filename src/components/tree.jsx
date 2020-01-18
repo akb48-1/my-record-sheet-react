@@ -41,6 +41,18 @@ class Tree extends Component {
     componentDidMount() {
         queryAllMenuList().then(res => {
             if(res.success) {
+                let list = res.data.list;
+
+                list.forEach(item => {
+                    var parentUrl = '';
+                    if (item.children && item.children.length) {
+                        parentUrl = item.url;
+                        item.children.forEach(child => {
+                            child.url = parentUrl + child.url;
+                        })
+                    }
+                })
+                
                 this.setState({
                     leftNav: res.data.list
                 })

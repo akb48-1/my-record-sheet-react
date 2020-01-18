@@ -36,7 +36,7 @@ instance.interceptors.response.use(response => {
   if (response.status === 200) {
     var data = response.data;
     if (data.success === false) {
-      message.error(data.msg)
+      message.error(data.message)
       if(data.code === 403 || data.code === 500) {
         localStorage.setItem('token', '');
         localStorage.setItem('userInfo', '');

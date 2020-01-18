@@ -14,7 +14,7 @@ class NewFormCom extends Component {
                     rules: item.rules || [],
                     initialValue: item.initialValue
                 })(
-                    <DatePicker placeholder={item.placeholder || ''} allowClear={item.allowClear ? 'allowClear' : ''} />,
+                    <DatePicker placeholder={item.placeholder || ''} allowClear={item.allowClear ? 'allowClear' : ''} disabled={item.disabled || false} />,
                 )}
             </Form.Item>
         )
@@ -26,7 +26,7 @@ class NewFormCom extends Component {
                     rules: item.rules || [],
                     initialValue: item.initialValue
                 })(
-                    <Input placeholder={item.placeholder || ''} allowClear={item.allowClear ? 'allowClear' : ''}/>,
+                    <Input placeholder={item.placeholder || ''} allowClear={item.allowClear ? 'allowClear' : ''} disabled={item.disabled || false} />,
                 )}
             </Form.Item>
         )
@@ -38,14 +38,14 @@ class NewFormCom extends Component {
                     rules: item.rules || [],
                     initialValue: item.initialValue
                 })(
-                    <Select placeholder={item.placeholder || ''} allowClear={item.allowClear ? 'allowClear' : ''} >
+                    <Select placeholder={item.placeholder || ''} allowClear={item.allowClear ? 'allowClear' : ''} disabled={item.disabled || false} >
                         {
                             // if(Array.isArray(item.options) && item.options.length > 0) {
                                 
                             // }
 
                                 item.options.map((opt) => {
-                                   return  <Option key={opt.value}>{opt.name}</Option>
+                                    return <Option key={opt.value} disabled={item.optionDisabled || false}>{opt.name}</Option>
                                 })
                         }
                     </Select>
@@ -60,7 +60,7 @@ class NewFormCom extends Component {
                     rules: item.rules || [],
                     initialValue: item.initialValue
                 })(
-                    <Input.TextArea placeholder={item.placeholder || ''} allowClear={item.allowClear ? 'allowClear' : ''} />,
+                    <Input.TextArea placeholder={item.placeholder || ''} allowClear={item.allowClear ? 'allowClear' : ''} disabled={item.disabled || false} />,
                 )}
             </Form.Item>
         )
@@ -68,7 +68,7 @@ class NewFormCom extends Component {
     renderButton = (item, getFieldDecorator, index) => {
         return (
             <Form.Item key={index}>
-                <Button type={item.type || 'primary'} onClick={() => item.onClick && item.onClick()}>{item.text}</Button>
+                <Button type={item.type || 'primary'} onClick={() => item.onClick && item.onClick()} disabled={item.disabled || false} >{item.text}</Button>
             </Form.Item>
         )
     }

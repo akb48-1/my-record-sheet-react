@@ -1,12 +1,10 @@
 import React, { Component } from 'react';
 import { Table, Form, Input, Button, Icon, Modal, DatePicker, message, Pagination } from 'antd';
-import NewForm from '../../components/newForm'
-import { queryMemberList, addMember, modifyMember, deleteMember } from '../../http'
+import NewForm from '../../../components/newForm'
+import { queryPrizeIssuerList, addPrizeIssuer, modifyPrizeIssuer, deletePrizeIssuerById } from '../../../http'
 import moment from 'moment';
 
-
-class MemberCon extends Component {
-
+class PrizeSponsorCom extends Component {
     constructor(prop) {
         super(prop);
 
@@ -15,7 +13,7 @@ class MemberCon extends Component {
                 pageNum: 1,
                 pageSize: 10
             },
-            total: 82,
+            total: 0,
             tableLoading: false,
             dataSource: [],
             visible: false,
@@ -25,91 +23,37 @@ class MemberCon extends Component {
             items: [
                 {
                     element: 'input',
-                    label: 'uid',
-                    key: 'uid',
+                    label: 'issuerId',
+                    key: 'issuerId',
                     style: { display: "none" },
                     initialValue: '',
                     allowClear: true,
                 },
                 {
                     element: 'input',
-                    label: '姓名',
-                    rules: [{ required: true, message: '请输入姓名' }],
-                    placeholder: '姓名',
-                    key: 'member_name',
+                    label: '赞助者',
+                    rules: [{ required: true, message: '请输入赞助者' }],
+                    placeholder: '赞助者',
+                    key: 'issuerName',
                     initialValue: '',
                     allowClear: true,
                 },
                 {
                     element: 'input',
                     label: '年龄',
-                    rules: [{ required: true, message: '请输入年龄' }],
+                    rules: [{ required: false, message: '请输入年龄' }],
                     placeholder: '年龄',
-                    key: 'age',
+                    key: 'issuerAge',
                     initialValue: '',
                     allowClear: true,
-                },
-                {
-                    element: 'input',
-                    label: '手机号',
-                    // rules: [{ required: false, message: '请输入手机号' }],
-                    placeholder: '手机号',
-                    key: 'phone',
-                    initialValue: '',
-                    allowClear: true,
-                },
-                {
-                    element: 'input',
-                    label: '地址',
-                    rules: [{ required: true, message: '请输入地址' }],
-                    placeholder: '地址',
-                    key: 'address',
-                    initialValue: '',
-                    allowClear: true,
-                },
-                {
-                    element: 'datePicker',
-                    label: '出生日期',
-                    rules: [{ required: true, message: '请输入出生日期' }],
-                    placeholder: '',
-                    key: 'birthday',
-                    initialValue: '',
-                    allowClear: true,
-                },
-                {
-                    element: 'textArea',
-                    label: '描述',
-                    // rules: [{ required: false, message: '请输入描述' }],
-                    placeholder: '',
-                    key: 'remark',
-                    initialValue: '',
-                    allowClear: true,
-                },
-                {
-                    element: 'select',
-                    label: '状态',
-                    key: 'status',
-                    // style: { display: "none" },
-                    initialValue: '',
-                    rules: [{ required: true, message: '请选择状态' }],
-                    options: [{ value: "1", name: '开启' }, { value: "0", name: '关闭' }],
-                    allowClear: true,
-                },
+                }
             ],
             items2: [
                 {
                     element: 'input',
-                    label: '姓名',
-                    placeholder: '姓名',
-                    key: 'member_name',
-                    initialValue: '',
-                    allowClear: true,
-                },
-                {
-                    element: 'input',
-                    label: '年龄',
-                    placeholder: '年龄',
-                    key: 'age',
+                    label: '赞助者',
+                    placeholder: '赞助者',
+                    key: 'issuerName',
                     initialValue: '',
                     allowClear: true,
                 },
@@ -134,39 +78,21 @@ class MemberCon extends Component {
 
     columns = [
         {
-            title: '姓名',
-            dataIndex: 'member_name',
-            key: 'member_name',
+            title: 'ID',
+            dataIndex: 'issuerId',
+            key: 'issuerId',
+            align: 'left'
+        },
+        {
+            title: '赞助者',
+            dataIndex: 'issuerName',
+            key: 'issuerName',
             align: 'left'
         },
         {
             title: '年龄',
-            dataIndex: 'age',
-            key: 'age',
-            align: 'left'
-        },
-        {
-            title: '住址',
-            dataIndex: 'address',
-            key: 'address',
-            align: 'left'
-        },
-        {
-            title: '手机号',
-            dataIndex: 'phone',
-            key: 'phone',
-            align: 'left'
-        },
-        {
-            title: '生日',
-            dataIndex: 'birthday',
-            key: 'birthday',
-            align: 'left'
-        },
-        {
-            title: '描述',
-            dataIndex: 'remark',
-            key: 'remark',
+            dataIndex: 'issuerAge',
+            key: 'issuerAge',
             align: 'left'
         },
         {
@@ -189,45 +115,39 @@ class MemberCon extends Component {
             visible: true,
             edit: 'modify'
         }, () => {
-            item.birthday = moment(item.birthday)
-            item.status = '' + item.status
-
             setTimeout(() => {
                 this.modalForm.props.form.setFieldsValue(item)
-
-                console.log(this.modalForm.props.form.getFieldsValue())
-
             }, 500)
         })
     }
     deleteBefore = (item) => {
         let that = this;
         Modal.confirm({
-            title: `确定删除${item.member_name}?`,
+            title: `确定删除${item.issuerName}?`,
             okText: '删除',
             okType: 'danger',
             cancelText: '关闭',
             confirmLoading: false,
             onOk() {
                 return new Promise((resolve, reject) => {
-                    deleteMember({ uid: item.uid }).then(res => {
+                    deletePrizeIssuerById({ issuerId: item.issuerId }).then(res => {
                         if (res.success) {
                             message.success('删除成功')
                             resolve();
                             that.modalForm && that.modalForm.props.form.resetFields()
-                            that.queryMemberList({ ...that.state.searchParams, ...that.state.pagination});
+                            that.queryPrizeIssuerList({ ...that.state.searchParams, ...that.state.pagination });
                         }
                     })
                 })
-                
+
             }
         });
     }
-    queryMemberList = (params) => {
+    queryPrizeIssuerList = (params) => {
         this.setState({
             tableLoading: true
         })
-        queryMemberList(params).then(res => {
+        queryPrizeIssuerList(params).then(res => {
             this.setState({
                 dataSource: res.data.list,
                 total: res.data.total,
@@ -247,29 +167,29 @@ class MemberCon extends Component {
         this.setState({
             searchParams: values
         })
-        this.queryMemberList({ ...values, ...this.state.pagination});
+        this.queryPrizeIssuerList({ ...values, ...this.state.pagination });
     }
-    addMember = (values) => {
-        addMember(values).then(res => {
+    addPrizeIssuer = (values) => {
+        addPrizeIssuer(values).then(res => {
             if (res.code === 200) {
                 this.setState({
                     visible: false
                 }, () => {
                     message.success('新增成功')
                     this.modalForm && this.modalForm.props.form.resetFields()
-                        this.queryMemberList({ ...this.state.searchParams, ...this.state.pagination });
+                    this.queryPrizeIssuerList({ ...this.state.searchParams, ...this.state.pagination });
                 })
             }
         })
     }
-    modifyMember = (values) => {
-        modifyMember(values).then(res => {
+    modifyPrizeIssuer = (values) => {
+        modifyPrizeIssuer(values).then(res => {
             if (res.code === 200) {
                 this.setState({
                     visible: false
                 }, () => {
                     this.modalForm && this.modalForm.props.form.resetFields()
-                        this.queryMemberList({ ...this.state.searchParams, ...this.state.pagination });
+                    this.queryPrizeIssuerList({ ...this.state.searchParams, ...this.state.pagination });
                 })
                 message.success('修改成功')
             }
@@ -279,21 +199,17 @@ class MemberCon extends Component {
     handleOk = () => {
         this.modalForm.props.form.validateFields((err, values) => {
 
-            values.birthday && (values.birthday = values.birthday.format('YYYY-MM-DD'))
-            values.age != undefined && (values.age = Number(values.age))
-            values.status && (values.status = Number(values.status))
-
             console.log(err)
             console.log(values)
 
             if (!err) {
                 console.log('Received values of form: ', values);
-                if(this.state.edit === 'add') {
-                    this.addMember(values)
+                if (this.state.edit === 'add') {
+                    this.addPrizeIssuer(values)
                 } else if (this.state.edit === 'modify') {
-                    this.modifyMember(values)
+                    this.modifyPrizeIssuer(values)
                 }
-                
+
             }
         });
     }
@@ -318,28 +234,28 @@ class MemberCon extends Component {
             <div>
                 <NewForm items={this.state.items2} wrappedComponentRef={(searchForm) => this.searchForm = searchForm} layout="inline" />
                 <Table
-                    bordered 
-                    loading={this.state.tableLoading} 
-                    dataSource={this.state.dataSource} 
-                    columns={this.columns} 
-                    rowKey={(record) => record.uid} 
-                    pagination={false} 
+                    bordered
+                    loading={this.state.tableLoading}
+                    dataSource={this.state.dataSource}
+                    columns={this.columns}
+                    rowKey={(record) => record.issuerId}
+                    pagination={false}
                 />
                 <Pagination
-                    style={{marginTop: '15px'}}
-                    size="small" 
-                    total={this.state.total} 
+                    style={{ marginTop: '15px' }}
+                    size="small"
+                    total={this.state.total}
                     position="bottom"
                     current={this.state.pagination.pageNum}
                     pageSize={this.state.pagination.pageSize}
-                    onChange={(page, pageSize) => this.queryMemberList({ ...this.state.searchParams, pageNum: page, pageSize: pageSize})}
-                    onShowSizeChange={(page, pageSize) => this.queryMemberList({ ...this.state.searchParams, pageNum: page, pageSize: pageSize })}
-                    showSizeChanger 
+                    onChange={(page, pageSize) => this.queryPrizeIssuerList({ ...this.state.searchParams, pageNum: page, pageSize: pageSize })}
+                    onShowSizeChange={(page, pageSize) => this.queryPrizeIssuerList({ ...this.state.searchParams, pageNum: page, pageSize: pageSize })}
+                    showSizeChanger
                     showQuickJumper
-                 />
+                />
 
                 <Modal
-                    title={this.state.edit === 'add' ? '新增用户' : '修改用户'}
+                    title={this.state.edit === 'add' ? '新增赞助者' : '修改赞助者'}
                     visible={this.state.visible}
                     onOk={this.handleOk}
                     confirmLoading={this.state.confirmLoading}
@@ -353,5 +269,6 @@ class MemberCon extends Component {
         );
     }
 }
-const Member = Form.create({})(MemberCon);
-export default Member;
+
+const PrizeSponsor = Form.create({})(PrizeSponsorCom);
+export default PrizeSponsor;
