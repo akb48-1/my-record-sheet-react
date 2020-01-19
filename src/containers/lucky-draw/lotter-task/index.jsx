@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Table, Form, Input, Button, Icon, Modal, DatePicker, message, Pagination } from 'antd';
 import NewForm from '../../../components/newForm'
-import { queryLotteryTaskList, addLotteryTask, modifyLotteryTask, deleteLotteryTaskById, queryPrizeIssuerList, queryPrizeConfigList } from '../../../http'
+import { queryLotteryTaskList, addLotteryTask, modifyLotteryTask, deleteLotteryTaskById, queryPrizeIssuerList, queryPrizeConfigList, startLotterTask } from '../../../http'
 import moment from 'moment';
 
 class PrizeTaskCom extends Component {
@@ -9,6 +9,7 @@ class PrizeTaskCom extends Component {
         super(prop);
 
         this.state = {
+            selectDisabled: false,
             prizeConfigList: [],
             prizeIssuerList: [],
             pagination: {
@@ -194,7 +195,7 @@ class PrizeTaskCom extends Component {
                 return (
                     <div>
                         <Button type="primary" size="small" onClick={() => this.modifyBefore(record)} >修改</Button>&nbsp;&nbsp;
-                        <Button type="danger" size="small" onClick={() => this.deleteBefore(record)} >删除</Button>
+                        {/* <Button type="danger" size="small" onClick={() => this.deleteBefore(record)} >删除</Button> */}
                     </div>
                 )
             },
@@ -205,10 +206,11 @@ class PrizeTaskCom extends Component {
         console.log(item)
         item.beginTime = moment(item.beginTime)
         item.endTime = moment(item.endTime)
-        item.status = '' + item.status
+        item.status = '' + item.status;
         this.setState({
             visible: true,
-            edit: 'modify'
+            edit: 'modify',
+            selectDisabled: item.status === '1',
         }, () => {
             setTimeout(() => {
                 this.modalForm.props.form.setFieldsValue(item)
@@ -347,7 +349,8 @@ class PrizeTaskCom extends Component {
 
         this.setState({
             visible: true,
-            edit: 'add'
+            edit: 'add',
+            selectDisabled: false
         }, () => {
             this.modalForm && this.modalForm.props.form.resetFields()
         })
@@ -389,7 +392,15 @@ class PrizeTaskCom extends Component {
             confirmLoading: false,
             onOk() {
                 return new Promise((resolve, reject) => {
-                    
+                    let params = {
+                        taskId: item.taskId
+                    }
+                    startLotterTask(params).then(res => {
+                        if(res.success) {
+                            message.success(res.message)
+                            that.search();
+                        }
+                    })
                     resolve();
                 })
             }
@@ -414,7 +425,7 @@ class PrizeTaskCom extends Component {
 
     render() {
         const optionDisabled = false;
-        const selectDisabled = this.state.edit == 'add';
+        const selectDisabled = this.state.selectDisabled;
 
         const items =  [
                 {

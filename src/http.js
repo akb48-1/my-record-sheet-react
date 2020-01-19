@@ -75,7 +75,7 @@ export function accountInfo(params = {}) {
 export function queryPrizeConfigList(params = {}) {
   return axios({
     method: 'post',
-    url: '/lotter/prize/queryPrizeConfigList',
+    url: '/lottery/prize/queryPrizeConfigList',
     data: params
   });
 }
@@ -84,7 +84,7 @@ export function queryPrizeConfigList(params = {}) {
 export function addPrizeConfig(params = {}) {
   return axios({
     method: 'post',
-    url: '/lotter/prize/addPrizeConfig',
+    url: '/lottery/prize/addPrizeConfig',
     data: params
   });
 }
@@ -93,7 +93,7 @@ export function addPrizeConfig(params = {}) {
 export function modifyPrizeConfig(params = {}) {
   return axios({
     method: 'post',
-    url: '/lotter/prize/updatePrizeConfig',
+    url: '/lottery/prize/updatePrizeConfig',
     data: params
   });
 }
@@ -102,7 +102,7 @@ export function modifyPrizeConfig(params = {}) {
 export function deletePrizeConfigById(params = {}) {
   return axios({
     method: 'post',
-    url: '/lotter/prize/deletePrizeConfigById',
+    url: '/lottery/prize/deletePrizeConfigById',
     data: params
   });
 }
@@ -114,7 +114,7 @@ export function deletePrizeConfigById(params = {}) {
 export function queryPrizeIssuerList(params = {}) {
   return axios({
     method: 'post',
-    url: '/lotter/prizeIssuer/queryPrizeIssuerList',
+    url: '/lottery/prizeIssuer/queryPrizeIssuerList',
     data: params
   });
 }
@@ -123,7 +123,7 @@ export function queryPrizeIssuerList(params = {}) {
 export function addPrizeIssuer(params = {}) {
   return axios({
     method: 'post',
-    url: '/lotter/prizeIssuer/addPrizeIssuer',
+    url: '/lottery/prizeIssuer/addPrizeIssuer',
     data: params
   });
 }
@@ -132,7 +132,7 @@ export function addPrizeIssuer(params = {}) {
 export function modifyPrizeIssuer(params = {}) {
   return axios({
     method: 'post',
-    url: '/lotter/prizeIssuer/updatePrizeIssuer',
+    url: '/lottery/prizeIssuer/updatePrizeIssuer',
     data: params
   });
 }
@@ -141,7 +141,7 @@ export function modifyPrizeIssuer(params = {}) {
 export function deletePrizeIssuerById(params = {}) {
   return axios({
     method: 'post',
-    url: '/lotter/prizeIssuer/deletePrizeIssuerById',
+    url: '/lottery/prizeIssuer/deletePrizeIssuerById',
     data: params
   });
 }
@@ -152,7 +152,7 @@ export function deletePrizeIssuerById(params = {}) {
 export function queryLotteryTaskList(params = {}) {
   return axios({
     method: 'post',
-    url: '/lotter/lotteryTask/queryLotteryTaskList',
+    url: '/lottery/lotteryTask/queryLotteryTaskList',
     data: params
   });
 }
@@ -161,7 +161,7 @@ export function queryLotteryTaskList(params = {}) {
 export function addLotteryTask(params = {}) {
   return axios({
     method: 'post',
-    url: '/lotter/lotteryTask/addLotteryTask',
+    url: '/lottery/lotteryTask/addLotteryTask',
     data: params
   });
 }
@@ -170,7 +170,7 @@ export function addLotteryTask(params = {}) {
 export function modifyLotteryTask(params = {}) {
   return axios({
     method: 'post',
-    url: '/lotter/lotteryTask/updateLotteryTask',
+    url: '/lottery/lotteryTask/updateLotteryTask',
     data: params
   });
 }
@@ -179,8 +179,25 @@ export function modifyLotteryTask(params = {}) {
 export function deleteLotteryTaskById(params = {}) {
   return axios({
     method: 'post',
-    url: '/lotter/lotteryTask/deleteLotteryTaskById',
+    url: '/lottery/lotteryTask/deleteLotteryTaskById',
     data: params
   });
 }
 
+/* 派发红包 */
+export function startLotterTask(params = {}) {
+  return axios({
+    method: 'post',
+    url: '/lottery/lotteryTask/startLotterTask',
+    data: params
+  });
+}
+
+/* 派发红包 */
+export function getLottery(params = {}) {
+  return axios({
+    method: 'post',
+    url: '/lottery/lotteryTask/startLotterTask',
+    data: params
+  });
+}
