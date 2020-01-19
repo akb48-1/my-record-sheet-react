@@ -255,6 +255,7 @@ class PrizeSettingCom extends Component {
                     columns={this.columns}
                     rowKey={(record) => record.prizeId}
                     pagination={false}
+                    style={{marginTop: '15px'}}
                 />
                 <Pagination
                     style={{ marginTop: '15px' }}

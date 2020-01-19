@@ -240,6 +240,7 @@ class PrizeSponsorCom extends Component {
                     columns={this.columns}
                     rowKey={(record) => record.issuerId}
                     pagination={false}
+                    style={{ marginTop: '15px' }}
                 />
                 <Pagination
                     style={{ marginTop: '15px' }}

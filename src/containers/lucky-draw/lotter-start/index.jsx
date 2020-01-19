@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Table, Form, Input, Button, Icon, Modal, DatePicker, message, Pagination } from 'antd';
 import NewForm from '../../../components/newForm'
-import { queryLotteryTaskList, queryPrizeIssuerList, queryPrizeConfigList } from '../../../http'
+import { queryLotteryTaskList, queryPrizeIssuerList, queryPrizeConfigList, getLotteryPrize } from '../../../http'
 import moment from 'moment';
 
 
@@ -10,6 +10,8 @@ class PrizeStartCom extends Component {
         super(prop);
 
         this.state = {
+            prizeModal: false,
+            myPrize: null,
             issuerTableLoading: false,
             currentLotterUser: {
                 issuerName: ''
@@ -202,11 +204,16 @@ class PrizeStartCom extends Component {
             key: 'status',
             align: 'left',
             render: (text, record, index) => {
-                let obj = this.statusArr.find(item => item.value === '' + text) || {};
-                if (obj.name) {
-                    return (<Button type="primary" size="small" disabled={record.status === 1} >{obj.name}</Button>)
+                let innerHtml = '';
+                if (text === 0) {
+                    innerHtml = '未派发'
+                } else if (text === 1) {
+                    innerHtml = '派发中'
+                } else if (text === 2) {
+                    innerHtml = '派发结束'
                 }
-                return '';
+     
+                return innerHtml;
             }
         },
         {
@@ -221,7 +228,7 @@ class PrizeStartCom extends Component {
             render: (text, record) => {
                 return (
                     <div>
-                        <Button type="primary" size="small" onClick={() => this.startLotter(record)} disabled={record.status === 0}>抽取</Button>
+                        <Button type="primary" size="small" onClick={() => this.startLotter(record)} disabled={record.status !== 1}>抽取</Button>
                     </div>
                 )
             },
@@ -326,19 +333,27 @@ class PrizeStartCom extends Component {
             cancelText: '关闭',
             confirmLoading: false,
             onOk() {
-                let lotteryName = this.state.currentLotterUser.issuerName;
+                let issuerName = that.state.currentLotterUser.issuerName;
+                let issuerId = that.state.currentLotterUser.issuerId;
 
                 return new Promise((resolve, reject) => {
                     let params = {
                         taskId: item.taskId,
-                        lotteryName: lotteryName
+                        prizeGainerName: issuerName,
+                        prizeGainerId: issuerId,
+
                     }
-                    // startLotter(params).then(res => {
-                    //     if(res.success) {
-                    //         message.success(res.message)
-                    //         that.search();
-                    //     }
-                    // })
+                    getLotteryPrize(params).then(res => {
+                        if(res.success) {
+                            that.setState({
+                                myPrize: res.data,
+                                prizeModal: true
+                            })
+                        } else {
+                            
+                            that.queryLotteryTaskList({ ...that.state.searchParams, ...that.state.paginatio})
+                        }
+                    })
                     resolve();
                 })
             }
@@ -373,15 +388,25 @@ class PrizeStartCom extends Component {
 
     searchForm = null;
     modalForm = null;
-    statusArr = [{ value: "1", name: '已派发' }, { value: "0", name: '未派发' }]
+    statusArr = [{ value: "1", name: '已派发' }, { value: "0", name: '未派发' }, { value: "2", name: '发放完毕' }]
 
     render() {
+        const formItemLayout = {
+            labelCol: {
+                xs: { span: 24 },
+                sm: { span: 8 },
+            },
+            wrapperCol: {
+                xs: { span: 24 },
+                sm: { span: 16 },
+            },
+        };
 
         return (
             <div>
                 
                 <NewForm items={this.state.items2} wrappedComponentRef={(searchForm) => this.searchForm = searchForm} layout="inline" />
-                <div>
+                <div style={{ marginTop: '15px' }}>
                     当前抽奖人 : {this.state.currentLotterUser? this.state.currentLotterUser.issuerName : '未选择'} &nbsp;&nbsp;&nbsp;&nbsp; <Button type="primary" size="small" onClick={this.openLotteryUserModal}>{this.state.currentLotterUser.issuerName? '切换抽奖人' : '选择抽奖人'}</Button>
                 </div>
                 <Table
@@ -391,6 +416,7 @@ class PrizeStartCom extends Component {
                     columns={this.columns}
                     rowKey={(record) => record.issuerId}
                     pagination={false}
+                    style={{ marginTop: '15px' }}
                 />
                 <Pagination
                     style={{ marginTop: '15px' }}
@@ -428,6 +454,26 @@ class PrizeStartCom extends Component {
                         rowKey={(record) => record.issuerId}
                         pagination={false}
                     />
+                </Modal>
+
+                <Modal
+                    title={'抽到奖啦'}
+                    visible={this.state.prizeModal}
+                    onCancel={() => this.setState({ prizeModal: false })}
+                    footer={null}
+                >
+                    {
+                        this.state.myPrize && <div>
+                            <Form {...formItemLayout} >
+                                <Form.Item label="奖品名称" style={{ marginBottom: '0' }} ><strong style={{color: 'red'}}>{this.state.myPrize.prizeName}</strong></Form.Item>
+                                <Form.Item label="奖品等级" style={{ marginBottom: '0' }} ><strong style={{color: 'red'}}>{this.state.myPrize.prizeLevel}等奖</strong></Form.Item>
+                                <Form.Item label="获奖时间" style={{ marginBottom: '0' }} ><strong style={{color: 'red'}}>{this.state.myPrize.receiveTime}</strong></Form.Item>
+                                <Form.Item label="贡献者" style={{ marginBottom: '0' }} ><strong style={{color: 'red'}}>{this.state.myPrize.prizeSupplierName}</strong></Form.Item>
+                                <Form.Item label="幸运者" style={{ marginBottom: '0' }} ><strong style={{color: 'red'}}>{this.state.myPrize.prizeGainerName}</strong></Form.Item>
+                                <Form.Item label="奖品编号" style={{ marginBottom: '0' }} ><strong style={{color: 'red'}}>{this.state.myPrize.prizeNo}</strong></Form.Item>
+                            </Form>
+                        </div>
+                    }
                 </Modal>
             </div>
         );

@@ -5,6 +5,7 @@ import { withRouter, Route } from 'react-router-dom';
 
 import { toLogin } from '@/http';
 
+// const loginBgImg = require('/public/img/loginBgImg.jpg')
 class LoginCom extends Component {
     componentWillMount = () => {
         if(localStorage.getItem('token', '')) {
@@ -36,36 +37,37 @@ class LoginCom extends Component {
         })
     }
     render() {
-
         let { getFieldDecorator } = this.props.form
         return (
-            <div style={{width: "380px", margin: '50vh auto 40% auto'}}>
-                <Form>
-                    <Form.Item >
-                        {getFieldDecorator('username', {
-                            rules: [{ required: true, message: '请输入账号!' }],
-                        })(
-                            <Input
-                                prefix={<Icon type="user" style={{ color: 'rgba(0,0,0,.25)' }} />}
-                                placeholder="Username"
-                            />,
-                        )}
-                    </Form.Item>
-                    <Form.Item >
-                        {getFieldDecorator('password', {
-                            rules: [{ required: true, message: '请输入密码!' }],
-                        })(
-                            <Input
-                                prefix={<Icon type="lock" style={{ color: 'rgba(0,0,0,.25)' }} />}
-                                type="password"
-                                placeholder="Password"
-                            />,
-                        )}
-                    </Form.Item>
-                    <Form.Item>
-                        <ResBtn type="primary" htmlType="submit" disabled={false} clickEvent={this.toLogin} style={{width: '100%'}}>登录</ResBtn>
-                    </Form.Item>
-                </Form>
+            <div class="login_bg">
+                <div class="login_window">
+                    <Form>
+                        <Form.Item >
+                            {getFieldDecorator('username', {
+                                rules: [{ required: true, message: '请输入账号!' }],
+                            })(
+                                <Input
+                                    prefix={<Icon type="user" style={{ color: 'rgba(0,0,0,.25)' }} />}
+                                    placeholder="Username"
+                                />,
+                            )}
+                        </Form.Item>
+                        <Form.Item >
+                            {getFieldDecorator('password', {
+                                rules: [{ required: true, message: '请输入密码!' }],
+                            })(
+                                <Input
+                                    prefix={<Icon type="lock" style={{ color: 'rgba(0,0,0,.25)' }} />}
+                                    type="password"
+                                    placeholder="Password"
+                                />,
+                            )}
+                        </Form.Item>
+                        <Form.Item>
+                            <ResBtn type="primary" htmlType="submit" disabled={false} clickEvent={this.toLogin} style={{width: '100%'}}>登录</ResBtn>
+                        </Form.Item>
+                    </Form>
+                </div>
             </div>
         );
     }

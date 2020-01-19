@@ -28,7 +28,16 @@
   background-color: #001529;
   width: 100%;
   img {
-    width: 80px;
+    width: 50px;
+    margin: 10px 0 0 10px;
+  }
+  .wecome {
+    vertical-align: middle;
+    margin: 10px 0 0 15px;
+    display: inline-block;
+    font-size: 20px;
+    color: #f00;
+    font-family: cursive;
   }
   #nav {
     flex: 1;
@@ -48,6 +57,27 @@
 }
 #Layout {
   height: calc(100vh - 60px);
+}
+
+body, html, #root {
+  height: 100%;
+}
+
+.login_window {
+  width: 380px;
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -10%);
+}
+.login_bg {
+    background: url(/img/loginBgImg.jpg) center no-repeat;
+    height: 100%;
+}
+.head_logo {
+  background: url(/img/logo.jpg) center no-repeat;
+  height: 30px;
+  width: 60px;
 }
 
 

@@ -185,19 +185,28 @@ export function deleteLotteryTaskById(params = {}) {
 }
 
 /* 派发红包 */
-export function startLotterTask(params = {}) {
+export function startLotteryTask(params = {}) {
   return axios({
     method: 'post',
-    url: '/lottery/lotteryTask/startLotterTask',
+    url: '/lottery/lotteryTask/startLotteryTask',
     data: params
   });
 }
 
 /* 派发红包 */
-export function getLottery(params = {}) {
+export function getLotteryPrize(params = {}) {
   return axios({
     method: 'post',
-    url: '/lottery/lotteryTask/startLotterTask',
+    url: '/lottery/prize/getLotteryPrize',
+    data: params
+  });
+}
+
+/* 查询得奖记录 */
+export function queryPrizeRecord(params = {}) {
+  return axios({
+    method: 'post',
+    url: '/lottery/prize/queryPrizeRecord',
     data: params
   });
 }

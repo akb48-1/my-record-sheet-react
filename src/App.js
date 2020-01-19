@@ -72,10 +72,8 @@ class App extends Component {
       <div className="App">
         <header id="header">
           <div id="logo" >
-            <a href="aaa">
-              <img src={'img/logo.svg'} alt=""/>
-            </a>
-              React
+              <img src={'/img/logo.jpg'} alt=""/>
+              <span class="wecome">新春快乐</span>
           </div>
           <div id="nav" >
             <div className="userInfo">

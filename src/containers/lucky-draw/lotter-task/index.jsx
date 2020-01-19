@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Table, Form, Input, Button, Icon, Modal, DatePicker, message, Pagination } from 'antd';
 import NewForm from '../../../components/newForm'
-import { queryLotteryTaskList, addLotteryTask, modifyLotteryTask, deleteLotteryTaskById, queryPrizeIssuerList, queryPrizeConfigList, startLotterTask } from '../../../http'
+import { queryLotteryTaskList, addLotteryTask, modifyLotteryTask, deleteLotteryTaskById, queryPrizeIssuerList, queryPrizeConfigList, startLotteryTask } from '../../../http'
 import moment from 'moment';
 
 class PrizeTaskCom extends Component {
@@ -173,10 +173,18 @@ class PrizeTaskCom extends Component {
             key: 'status',
             align: 'left',
             render: (text, record, index) => {
-                let obj = this.statusArr.find(item => item.value === '' + text) || {}
-                // return obj.name || '';
+                let obj = this.statusArr.find(item => item.value === '' + text) || {};
+
+                let innerHtml = '';
+                if (text === 0) {
+                    innerHtml = '派发'
+                } else if (text === 1) {
+                    innerHtml = '派发中'
+                } else if (text === 2) {
+                    innerHtml = '派发结束'
+                }
                 if (obj.name) {
-                    return (<Button type="primary" size="small" disabled={record.status === 1} onClick={() => this.publish(record)}>{obj.name}</Button>)
+                    return (<Button type="primary" size="small" disabled={record.status !== 0} onClick={() => this.publish(record)}>{innerHtml}</Button>)
                     
                 }
                 return '';
@@ -210,7 +218,7 @@ class PrizeTaskCom extends Component {
         this.setState({
             visible: true,
             edit: 'modify',
-            selectDisabled: item.status === '1',
+            selectDisabled: item.status === 1,
         }, () => {
             setTimeout(() => {
                 this.modalForm.props.form.setFieldsValue(item)
@@ -395,7 +403,7 @@ class PrizeTaskCom extends Component {
                     let params = {
                         taskId: item.taskId
                     }
-                    startLotterTask(params).then(res => {
+                    startLotteryTask(params).then(res => {
                         if(res.success) {
                             message.success(res.message)
                             that.search();
@@ -421,7 +429,7 @@ class PrizeTaskCom extends Component {
 
     searchForm = null;
     modalForm = null;
-    statusArr = [{ value: "1", name: '已派发' }, { value: "0", name: '未派发' }]
+    statusArr = [{ value: "1", name: '已派发' }, { value: "0", name: '未派发' }, { value: "2", name: '发放完毕' }]
 
     render() {
         const optionDisabled = false;
@@ -621,6 +629,7 @@ class PrizeTaskCom extends Component {
                     columns={this.columns}
                     rowKey={(record) => record.issuerId}
                     pagination={false}
+                    style={{ marginTop: '15px' }}
                 />
                 <Pagination
                     style={{ marginTop: '15px' }}
