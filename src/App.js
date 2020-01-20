@@ -73,7 +73,7 @@ class App extends Component {
         <header id="header">
           <div id="logo" >
               <img src={'/img/logo.jpg'} alt=""/>
-              <span class="wecome">新春快乐</span>
+              <span className="wecome">新春快乐</span>
           </div>
           <div id="nav" >
             <div className="userInfo">

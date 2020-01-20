@@ -54,6 +54,14 @@ class PrizeTaskCom extends Component {
 
     columns = [
         {
+            title: '序号',
+            dataIndex: 'index',
+            align: 'left',
+            render: (text, record, index) => {
+                return ++index + (this.state.pagination.pageNum - 1) * this.state.pagination.pageSize;
+            }
+        },
+        {
             title: 'ID',
             dataIndex: 'taskId',
             key: 'taskId',
@@ -173,18 +181,20 @@ class PrizeTaskCom extends Component {
             key: 'status',
             align: 'left',
             render: (text, record, index) => {
-                let obj = this.statusArr.find(item => item.value === '' + text) || {};
+                let obj = this.statusArr.find(item => ('' + item.value) === ('' + text)) || {};
+                let status = '' + record.status;
 
                 let innerHtml = '';
-                if (text === 0) {
+                if (status === '0') {
                     innerHtml = '派发'
-                } else if (text === 1) {
+                } else if (status === '1') {
                     innerHtml = '派发中'
-                } else if (text === 2) {
+                } else if (status === '2') {
                     innerHtml = '派发结束'
                 }
+
                 if (obj.name) {
-                    return (<Button type="primary" size="small" disabled={record.status !== 0} onClick={() => this.publish(record)}>{innerHtml}</Button>)
+                    return (<Button type="primary" size="small" disabled={status !== '0'} onClick={() => this.publish(record)}>{innerHtml}</Button>)
                     
                 }
                 return '';
@@ -218,7 +228,7 @@ class PrizeTaskCom extends Component {
         this.setState({
             visible: true,
             edit: 'modify',
-            selectDisabled: item.status === 1,
+            selectDisabled: item.status !== ('' + 0),
         }, () => {
             setTimeout(() => {
                 this.modalForm.props.form.setFieldsValue(item)
@@ -335,7 +345,9 @@ class PrizeTaskCom extends Component {
                 values.level4Num && (values.level4Num = Number(values.level4Num))
                 values.level5Num && (values.level5Num = Number(values.level5Num))
                 values.status = Number(values.status)
-   
+
+                values.issuerName = this.state.prizeIssuerList.find(item => item.value === values.issuerId).name
+
                 if (this.state.edit === 'add') {
                     this.addLotteryTask(values)
                 } else if (this.state.edit === 'modify') {
@@ -358,9 +370,15 @@ class PrizeTaskCom extends Component {
         this.setState({
             visible: true,
             edit: 'add',
-            selectDisabled: false
+            selectDisabled: false,
         }, () => {
             this.modalForm && this.modalForm.props.form.resetFields()
+
+            setTimeout(() => {
+                this.modalForm.props.form.setFieldsValue({
+                    status: '0'
+                })
+            }, 100)
         })
     }
     queryPrizeIssuerList = (params) => {
@@ -429,7 +447,7 @@ class PrizeTaskCom extends Component {
 
     searchForm = null;
     modalForm = null;
-    statusArr = [{ value: "1", name: '已派发' }, { value: "0", name: '未派发' }, { value: "2", name: '发放完毕' }]
+    statusArr = [{ value: "0", name: '未派发' }, { value: "1", name: '已派发' }, { value: "2", name: '发放完毕' }]
 
     render() {
         const optionDisabled = false;
@@ -576,26 +594,26 @@ class PrizeTaskCom extends Component {
                     disabled: selectDisabled,
                     allowClear: true,
                 },
-                {
-                    element: 'datePicker',
-                    label: '开启时间',
-                    rules: [{ required: false, message: '请输入开启时间' }],
-                    placeholder: '',
-                    key: 'beginTime',
-                    initialValue: '',
-                    disabled: selectDisabled,
-                    allowClear: true,
-                },
-                {
-                    element: 'datePicker',
-                    label: '结束时间',
-                    rules: [{ required: false, message: '请输入结束时间' }],
-                    placeholder: '',
-                    key: 'endTime',
-                    initialValue: '',
-                    disabled: selectDisabled,
-                    allowClear: true,
-                },
+                // {
+                //     element: 'datePicker',
+                //     label: '开启时间',
+                //     rules: [{ required: false, message: '请输入开启时间' }],
+                //     placeholder: '',
+                //     key: 'beginTime',
+                //     initialValue: '',
+                //     disabled: selectDisabled,
+                //     allowClear: true,
+                // },
+                // {
+                //     element: 'datePicker',
+                //     label: '结束时间',
+                //     rules: [{ required: false, message: '请输入结束时间' }],
+                //     placeholder: '',
+                //     key: 'endTime',
+                //     initialValue: '',
+                //     disabled: selectDisabled,
+                //     allowClear: true,
+                // },
                 {
                     element: 'select',
                     label: '状态',
@@ -604,7 +622,7 @@ class PrizeTaskCom extends Component {
                     initialValue: '',
                     rules: [{ required: true, message: '请选择状态' }],
                     options: this.statusArr,
-                    disabled: selectDisabled,
+                    disabled: true,
                     allowClear: true,
                 },
                 {

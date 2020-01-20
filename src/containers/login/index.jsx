@@ -39,8 +39,8 @@ class LoginCom extends Component {
     render() {
         let { getFieldDecorator } = this.props.form
         return (
-            <div class="login_bg">
-                <div class="login_window">
+            <div className="login_bg">
+                <div className="login_window">
                     <Form>
                         <Form.Item >
                             {getFieldDecorator('username', {

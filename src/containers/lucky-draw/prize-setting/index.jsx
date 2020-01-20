@@ -87,6 +87,14 @@ class PrizeSettingCom extends Component {
 
     columns = [
         {
+            title: '序号',
+            dataIndex: 'index',
+            align: 'left',
+            render: (text, record, index) => {
+                return ++index + (this.state.pagination.pageNum - 1) * this.state.pagination.pageSize;
+            }
+        },
+        {
             title: 'ID',
             dataIndex: 'prizeId',
             key: 'prizeId',

@@ -85,6 +85,14 @@ class PrizeStartCom extends Component {
     ]
     columns = [
         {
+            title: '序号',
+            dataIndex: 'index',
+            align: 'left',
+            render: (text, record, index) => {
+                return ++index + (this.state.pagination.pageNum - 1) * this.state.pagination.pageSize;
+            }
+        },
+        {
             title: 'ID',
             dataIndex: 'taskId',
             key: 'taskId',
@@ -414,7 +422,7 @@ class PrizeStartCom extends Component {
                     loading={this.state.tableLoading}
                     dataSource={this.state.dataSource}
                     columns={this.columns}
-                    rowKey={(record) => record.issuerId}
+                    rowKey={(record) => record.taskId}
                     pagination={false}
                     style={{ marginTop: '15px' }}
                 />
