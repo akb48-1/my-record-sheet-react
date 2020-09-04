@@ -75,7 +75,7 @@
   "homepage": ".",
   "devDependencies": {
     "http-proxy-middleware": "^0.20.0",
-    "node-sass": "^4.11.0",
+    "node-sass": "^4.13.1",
     "react-loadable": "^5.5.0",
     "react-router": "^5.1.2",
     "react-router-dom": "^5.1.2",
